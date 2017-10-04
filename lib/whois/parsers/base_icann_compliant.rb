@@ -25,11 +25,11 @@ module Whois
 
 
       property_supported :domain do
-        node('Domain Name', &:downcase)
+        node("Domain Name", &:downcase)
       end
 
       property_supported :domain_id do
-        node('Registry Domain ID')
+        node("Registry Domain ID")
       end
 
 
@@ -52,32 +52,32 @@ module Whois
 
 
       property_supported :created_on do
-        node('Creation Date') do |value|
+        node("Creation Date") do |value|
           parse_time(value)
         end
       end
 
       property_supported :updated_on do
-        node('Updated Date') do |value|
+        node("Updated Date") do |value|
           parse_time(value)
         end
       end
 
       property_supported :expires_on do
-        node('Registrar Registration Expiration Date') do |value|
+        node("Registrar Registration Expiration Date") do |value|
           parse_time(value)
         end
       end
 
 
       property_supported :registrar do
-        return unless node('Registrar')
-        Parser::Registrar.new(
-            id:           node('Registrar IANA ID'),
-            name:         node('Registrar'),
-            organization: node('Registrar'),
-            url:          node('Registrar URL'),
-        )
+        return unless node("Registrar")
+        Parser::Registrar.new({
+            id:           node("Registrar IANA ID"),
+            name:         node("Registrar"),
+            organization: node("Registrar"),
+            url:          node("Registrar URL"),
+        })
       end
 
 
@@ -95,7 +95,7 @@ module Whois
 
 
       property_supported :nameservers do
-        Array.wrap(node('Name Server') || node('Name Servers')).reject(&:empty?).map do |name|
+        Array.wrap(node("Name Server") || node("Name Servers")).reject(&:empty?).map do |name|
           Parser::Nameserver.new(name: name.downcase)
         end
       end
