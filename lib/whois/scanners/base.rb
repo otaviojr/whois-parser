@@ -103,7 +103,7 @@ module Whois
       end
 
       def unexpected_token
-        error!("Unexpected token")
+        #error!("Unexpected token")
       end
 
       def error!(message)
